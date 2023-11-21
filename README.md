@@ -61,37 +61,10 @@
 - 편리하게 과거 추적 가능
 - 나중에 실무에서 익숙해지기 위해
 
-<aside>
-☝ 안지킨 사례
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e3f0da85-dcba-447e-b888-31039e73a744/4b8b9937-a26c-4f16-8de2-d4fbfbd97094/Untitled.png)
-
-</aside>
-
-<aside>
-☝ 지킨 사례
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e3f0da85-dcba-447e-b888-31039e73a744/5ffba8b7-ca0d-43a9-9b60-c075e61137a5/Untitled.png)
-
-</aside>
 
 ### 🖤 한 커밋에는 한 가지 문제만!
 
 - 추적 가능하게 유지해주기
 - 너무 많은 문제를 한 커밋에 담으면 추적하기 어렵다.
 
-### 🖤 CLI에서 커밋 메시지 여러 줄로 작성하는 방법
-
-<aside>
-✅ **쌍따옴표를 닫지 말고 개행하며 작성 → 다 작성한 후에 쌍따옴표를 닫으면 작성 완료**
-
-```bash
-git commit -m "FEAT: 회원가입 기능 추가
-
-- 회원가입 기능 추가"
-```
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e3f0da85-dcba-447e-b888-31039e73a744/335eb35f-5297-403d-8fde-2343a41a5c66/Untitled.png)
-
-</aside>
   
