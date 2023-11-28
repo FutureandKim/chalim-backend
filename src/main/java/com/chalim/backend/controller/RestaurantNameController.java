@@ -23,12 +23,18 @@ public class RestaurantNameController {
     @Autowired
     RestaurantNameService restaurantNameService;
 
-    @GetMapping("/search")
-    public ResponseEntity<NameList> searchPlaceByKeyword(@RequestParam("keyword") String keyword, @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("userId") String userId) throws Exception {
+    @GetMapping("/restaurant-name")
+    public ResponseEntity<NameList> searchPlaceByKeyword(
+            @RequestParam("keyword") String keyword,
+            @RequestParam("page") int page,
+            @RequestParam("size") int size,
+            @RequestParam("latitude") double latitude,
+            @RequestParam("longitude") double longitude,
+            @RequestParam(name = "radius", defaultValue = "100") int radius) throws Exception {
 
-        logger.info(" /search api start. user [{}], keyword [{}], page [{}], size [{}]", userId, keyword, page, size);
+        logger.info("/restaurant-name api(가게명 검색 api) keyword [{}], page [{}], size [{}], latitude [{}], longitude [{}], radius [{}]", keyword, page, size, latitude, longitude, radius);
 
-        NameList list = restaurantNameService.searchPlaceByKeyword(keyword, page, size, userId);
+        NameList list = restaurantNameService.searchPlaceByKeyword(keyword, page, size, latitude, longitude, radius);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 }

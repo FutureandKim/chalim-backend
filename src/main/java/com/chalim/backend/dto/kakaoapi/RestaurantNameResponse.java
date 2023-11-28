@@ -15,7 +15,7 @@ public class RestaurantNameResponse {
 
     @Override
     public String toString() {
-        return "KakaoResponse{" +
+        return "Response{" +
                 "meta=" + meta +
                 ", documents=" + documents +
                 '}';

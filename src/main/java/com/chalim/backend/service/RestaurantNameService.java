@@ -46,9 +46,9 @@ public class RestaurantNameService {
 
 
 
-    public NameList searchPlaceByKeyword(String keyword, int page, int size, String userId) throws IOException {
+    public NameList searchPlaceByKeyword(String keyword, int page, int size, double latitude, double longitude, int radius) throws IOException {
 
-        logger.info(" KAKAO APP KEY [{}]", kakaoApiKey);
+        //logger.info(" 카카오 api key [{}]", kakaoApiKey);
 
         // header setting
         HttpHeaders headers = new HttpHeaders();
@@ -59,8 +59,9 @@ public class RestaurantNameService {
         UriComponents uriComponents = UriComponentsBuilder.fromUriString(Constants.KAKAO_SEARCH_API)
                 .path(Constants.KAKAO_SEARCH_PATH)
                 .queryParam(QUERY, keyword)
-                .queryParam(PAGE, page)
-                .queryParam(SIZE, size)
+                .queryParam("y", latitude)
+                .queryParam("x", longitude)
+                .queryParam("radius", radius)
                 .build();
 
 
@@ -81,12 +82,12 @@ public class RestaurantNameService {
 
 
         // redirectUrl setting
-        restaurantNameResponse.getDocuments().stream().forEach(document -> {
+        restaurantNameResponse.getDocuments().forEach(document -> {
             document.setRedirectUrl(Constants.MAP_REDIRECT_URL + document.getId());
         });
 
         // output setting
-        NameList nameList = new NameList(page, totalPage, size, pageableCount, restaurantNameResponse.getDocuments());
+        NameList nameList = new NameList(page, totalPage, size, pageableCount, latitude, longitude, restaurantNameResponse.getDocuments());
 
 
         return nameList;
