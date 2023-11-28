@@ -10,7 +10,7 @@ import java.util.Collections;
 
 @Component
 public class OpenAIAPI {
-
+/*
     @Value("${openai.api.key}")
     private String apiKey;
 
@@ -43,4 +43,6 @@ public class OpenAIAPI {
         // 메뉴 정보 DTO 생성 및 반환
         return new MenuInfoDto(generatedText, generatedText, generatedText);
     }
+
+ */
 }
