@@ -15,5 +15,7 @@ public class MenuInfoService {
     public MenuInfoDto getMenuInfo(String menuName) {
         return openAIAPI.getMenuInfo(menuName);
     }
+
+
 }
 
