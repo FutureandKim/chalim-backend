@@ -41,7 +41,7 @@ public class RestaurantNameService {
     public RestaurantNameService(@Qualifier("appRestTemplate") RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
-    @Value("f3c3f5786752a80f8066f780e506c8e7")
+    @Value("${kakaoApiKey}")
     private String kakaoApiKey;
 
 
