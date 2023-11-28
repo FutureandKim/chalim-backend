@@ -1,5 +1,7 @@
 package com.chalim.backend.service;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import com.chalim.backend.config.Constants;
 import com.chalim.backend.dto.NameList;
 import com.chalim.backend.dto.kakaoapi.RestaurantNameRequest;
@@ -41,7 +43,7 @@ public class RestaurantNameService {
     public RestaurantNameService(@Qualifier("appRestTemplate") RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
-    @Value("${kakaoApiKey}")
+    @Value("${kakao.api.key}")
     private String kakaoApiKey;
 
 
