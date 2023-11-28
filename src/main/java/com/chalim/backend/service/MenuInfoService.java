@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MenuInfoService {
-/*
+
     @Autowired
     private OpenAIAPI openAIAPI;
 
@@ -16,6 +16,6 @@ public class MenuInfoService {
         return openAIAPI.getMenuInfo(menuName);
     }
 
- */
+
 }
 

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/menu")
 public class MenuInfoController {
-/*
+
     @Autowired
     private MenuInfoService menuInfoService;
 
@@ -24,7 +24,6 @@ public class MenuInfoController {
         }
     }
 
- */
 }
 
 
