@@ -23,7 +23,4 @@ public class MenuInfoController {
             return ResponseEntity.internalServerError().build();
         }
     }
-
 }
-
-
