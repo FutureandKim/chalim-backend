@@ -67,11 +67,6 @@ public class RestaurantNameService {
         ObjectMapper mapper = new ObjectMapper();
         RestaurantNameResponse restaurantNameResponse = mapper.readValue(response.getBody(), RestaurantNameResponse.class);
 
-        // redirectUrl setting
-        restaurantNameResponse.getDocuments().forEach(document -> {
-            document.setRedirectUrl(Constants.MAP_REDIRECT_URL + document.getId());
-        });
-
         // output setting
         NameList nameList = new NameList(latitude, longitude, restaurantNameResponse.getDocuments());
 
