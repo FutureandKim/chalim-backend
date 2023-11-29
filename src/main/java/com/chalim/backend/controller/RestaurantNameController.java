@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 public class RestaurantNameController {
@@ -19,16 +19,19 @@ public class RestaurantNameController {
     @Autowired
     RestaurantNameService restaurantNameService;
 
-    // api uri: /restaurant-name?keyword=스시&y=37.51207412593136&x=127.05902969025047&radius
-    //에러 처리 하기!!
-    @GetMapping("/restaurant-name")
-    public ResponseEntity<NameList> searchRestaurantByKeyword(
-            @RequestParam("keyword") String keyword,
-            @RequestParam("y") double latitude, //y:위도
-            @RequestParam("x") double longitude, //x:경도
-            @RequestParam(name = "radius", defaultValue = "100") int radius) throws Exception {
 
-        logger.info("/restaurant-name(가게명 조회) keyword [{}], latitude [{}], longitude [{}], radius [{}]", keyword, latitude, longitude, radius);
+    //에러 처리 하기!!
+    @PostMapping("/restaurant-name")
+    public ResponseEntity<NameList> searchRestaurantByKeywordPost(
+            @RequestBody Map<String, Object> requestBody) throws Exception {
+
+        // from frontend
+        String keyword = (String) requestBody.get("keyword");
+        double latitude = (double) requestBody.get("y");
+        double longitude = (double) requestBody.get("x");
+        int radius = requestBody.containsKey("radius") ? (int) requestBody.get("radius") : 100; //반경 100m
+
+        logger.info("/restaurant-name-post(가게명 조회 - POST) keyword [{}], latitude [{}], longitude [{}], radius [{}]", keyword, latitude, longitude, radius);
 
         NameList list = restaurantNameService.searchRestaurantByKeyword(keyword, latitude, longitude, radius);
         return new ResponseEntity<>(list, HttpStatus.OK);
