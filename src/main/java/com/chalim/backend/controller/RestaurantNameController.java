@@ -19,14 +19,16 @@ public class RestaurantNameController {
     @Autowired
     RestaurantNameService restaurantNameService;
 
+    // api uri: /restaurant-name?keyword=스시&y=37.51207412593136&x=127.05902969025047&radius
+    //에러 처리 하기!!
     @GetMapping("/restaurant-name")
     public ResponseEntity<NameList> searchRestaurantByKeyword(
             @RequestParam("keyword") String keyword,
             @RequestParam("y") double latitude, //y:위도
             @RequestParam("x") double longitude, //x:경도
-            @RequestParam(name = "radius", defaultValue = "50") int radius) throws Exception {
+            @RequestParam(name = "radius", defaultValue = "100") int radius) throws Exception {
 
-        logger.info("/restaurant-name(가게명 검색 api) keyword [{}], latitude [{}], longitude [{}], radius [{}]", keyword, latitude, longitude, radius);
+        logger.info("/restaurant-name(가게명 조회) keyword [{}], latitude [{}], longitude [{}], radius [{}]", keyword, latitude, longitude, radius);
 
         NameList list = restaurantNameService.searchRestaurantByKeyword(keyword, latitude, longitude, radius);
         return new ResponseEntity<>(list, HttpStatus.OK);
