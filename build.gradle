@@ -28,6 +28,13 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'io.springfox:springfox-swagger2:2.9.2'
+	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+
+	// Jakarta Bean Validation API
+	implementation 'jakarta.validation:jakarta.validation-api:3.0.0'
+	implementation 'org.hibernate.validator:hibernate-validator:7.0.0.Final'
+
 
 	// H2 Database
 	runtimeOnly 'com.h2database:h2'
