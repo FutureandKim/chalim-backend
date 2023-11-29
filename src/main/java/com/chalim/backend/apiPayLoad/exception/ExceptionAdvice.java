@@ -1,8 +1,6 @@
 package com.chalim.backend.apiPayLoad.exception;
 
-import com.chalim.backend.apiPayLoad.ApiResponse;
-import com.chalim.backend.apiPayLoad.code.ErrorReasonDTO;
-import com.chalim.backend.apiPayLoad.code.status.ErrorStatus;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,8 +12,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import jakarta.validation.ConstraintViolationException;
-import jakarta.servlet.http.HttpServletRequest;
+import com.chalim.backend.apiPayLoad.ApiResponse;
+import com.chalim.backend.apiPayLoad.code.ErrorReasonDTO;
+import com.chalim.backend.apiPayLoad.code.status.ErrorStatus;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -36,20 +37,6 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
     }
 
 
-    @org.springframework.web.bind.annotation.ExceptionHandler
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(
-            MethodArgumentNotValidException e, HttpHeaders headers, HttpStatus status, WebRequest request) {
-
-        Map<String, String> errors = new LinkedHashMap<>();
-
-        e.getBindingResult().getFieldErrors().forEach(fieldError -> {
-            String fieldName = fieldError.getField();
-            String errorMessage = Optional.ofNullable(fieldError.getDefaultMessage()).orElse("");
-            errors.merge(fieldName, errorMessage, (existingErrorMessage, newErrorMessage) -> existingErrorMessage + ", " + newErrorMessage);
-        });
-
-        return handleExceptionInternalArgs(e,HttpHeaders.EMPTY,ErrorStatus.valueOf("_BAD_REQUEST"),request,errors);
-    }
 
     @org.springframework.web.bind.annotation.ExceptionHandler
     public ResponseEntity<Object> exception(Exception e, WebRequest request) {
@@ -68,8 +55,9 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
                                                            HttpHeaders headers, HttpServletRequest request) {
 
         ApiResponse<Object> body = ApiResponse.onFailure(reason.getCode(),reason.getMessage(),null);
+//        e.printStackTrace();
 
-        WebRequest webRequest = new ServletWebRequest(request);
+        WebRequest webRequest = new ServletWebRequest((jakarta.servlet.http.HttpServletRequest) request);
         return super.handleExceptionInternal(
                 e,
                 body,

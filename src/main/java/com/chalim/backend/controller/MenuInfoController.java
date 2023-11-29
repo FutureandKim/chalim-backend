@@ -3,8 +3,12 @@ package com.chalim.backend.controller;
 import com.chalim.backend.apiPayLoad.ApiResponse;
 import com.chalim.backend.dto.MenuInfoDto;
 import com.chalim.backend.service.MenuInfoService;
+import com.chalim.backend.apiPayLoad.exception.GeneralException;
+import com.chalim.backend.apiPayLoad.code.ErrorReasonDTO;
+import com.chalim.backend.apiPayLoad.code.status.ErrorStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,13 +20,9 @@ public class MenuInfoController {
 
     @GetMapping("/info/{menuName}")
     public ResponseEntity<ApiResponse<MenuInfoDto>> getMenuInfo(@PathVariable String menuName) {
-        try {
-            MenuInfoDto menuInfo = menuInfoService.getMenuInfo(menuName);
-            ApiResponse<MenuInfoDto> response = ApiResponse.onSuccess(menuInfo);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            ApiResponse<MenuInfoDto> errorResponse = ApiResponse.onFailure("에러코드", "에러 메시지", null);
-            return ResponseEntity.internalServerError().body(errorResponse);
-        }
+        MenuInfoDto menuInfo = menuInfoService.getMenuInfo(menuName);
+        ApiResponse<MenuInfoDto> response = ApiResponse.onSuccess(menuInfo);
+        return ResponseEntity.ok(response);
     }
 }
+
