@@ -68,7 +68,7 @@ public class RestaurantNameService {
         RestaurantNameResponse restaurantNameResponse = mapper.readValue(response.getBody(), RestaurantNameResponse.class);
 
         // output setting
-        NameList nameList = new NameList(latitude, longitude, restaurantNameResponse.getDocuments());
+        NameList nameList = new NameList(restaurantNameResponse.getDocuments());
 
         return nameList;
     }
