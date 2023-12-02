@@ -13,6 +13,7 @@ public class RestaurantNameResponse {
         return documents;
     }
 
+
     @Override
     public String toString() {
         return "Response{" +
