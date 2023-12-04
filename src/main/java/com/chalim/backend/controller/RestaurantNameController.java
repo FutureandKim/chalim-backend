@@ -29,7 +29,7 @@ public class RestaurantNameController {
         String keyword = (String) requestBody.get("keyword");
         double latitude = (double) requestBody.get("y");
         double longitude = (double) requestBody.get("x");
-        int radius = requestBody.containsKey("radius") ? (int) requestBody.get("radius") : 100; //반경 100m
+        int radius = requestBody.containsKey("radius") ? (int) requestBody.get("radius") : 1000; //반경 100m
 
         logger.info("/restaurant-name-post(가게명 조회 - POST) keyword [{}], latitude [{}], longitude [{}], radius [{}]", keyword, latitude, longitude, radius);
 

@@ -1,6 +1,9 @@
 package com.chalim.backend.dto;
 
 import com.chalim.backend.dto.kakaoapi.Document;
+
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class NameList {
@@ -8,6 +11,7 @@ public class NameList {
 
     public NameList(List<Document> documents) {
         this.documents = documents;
+        this.documents.sort(Comparator.comparingDouble((Document doc) -> Double.parseDouble(doc.getDistance()))); //거리 오름차순
     }
 
     public List<Document> getDocuments() {
@@ -20,4 +24,7 @@ public class NameList {
                 "documents=" + documents +
                 '}';
     }
+
+
+
 }

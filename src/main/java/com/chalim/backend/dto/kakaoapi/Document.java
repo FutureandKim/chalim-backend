@@ -9,14 +9,21 @@ public class Document {
     @JsonProperty("place_name")
     private String placeName;
 
+    private String distance;
+
     public String getPlaceName() {
         return placeName;
+    }
+
+    public String getDistance() {
+        return distance;
     }
 
     @Override
     public String toString() {
         return "Document{" +
-                "placeName='" + placeName +
+                "placeName='" + placeName + '\'' +
+                ", distance='" + distance + '\'' +
                 '}';
     }
 }
