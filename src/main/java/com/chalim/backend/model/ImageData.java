@@ -14,7 +14,6 @@ public class ImageData {
         this.imageFile = imageFile;
     }
 
-    // Getters
     public String getImageName() {
         return imageName;
     }
