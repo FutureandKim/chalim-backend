@@ -1,5 +1,6 @@
 package com.chalim.backend.controller;
 
+import com.chalim.backend.dto.ResponseDto;
 import com.chalim.backend.apiPayLoad.ApiResponse;
 import com.chalim.backend.dto.TranslateRequest;
 import com.chalim.backend.dto.TranslateResponse;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/translate")
@@ -24,10 +26,11 @@ public class TranslateController {
     }
 
     @PostMapping("/{language}")
-    public ResponseEntity<ApiResponse<TranslateResponse>> translateText(@PathVariable String language, @RequestBody TranslateRequest request) {
-            String translatedText = translateService.translate(request.getText(), language);
-            TranslateResponse translateResponse = new TranslateResponse(translatedText);
-            ApiResponse<TranslateResponse> response = ApiResponse.onSuccess(translateResponse);
-            return ResponseEntity.ok(response);
+    public ResponseEntity<ResponseDto> translateText(@PathVariable String language,
+                                                     @RequestParam("image") MultipartFile imageFile) {
+        String imageName = imageFile.getOriginalFilename();
+        // You can process the image file if needed
+        ResponseDto response = translateService.translateTextData(language, imageName);
+        return ResponseEntity.ok(response);
     }
 }
