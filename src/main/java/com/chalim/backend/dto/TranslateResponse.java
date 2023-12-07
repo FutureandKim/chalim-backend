@@ -13,9 +13,5 @@ public class TranslateResponse {
         return translatedText;
     }
 
-    // setter
-    public void setTranslatedText(String translatedText) {
-        this.translatedText = translatedText;
-    }
 }
 

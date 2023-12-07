@@ -14,8 +14,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class TranslateService {
-
-
         public ResponseDto translateTextData(String language, String imageName) {
             String dummyJson = "[\n" +
                     "    {\n" +
@@ -47,3 +45,4 @@ public class TranslateService {
         }
 
 }
+
