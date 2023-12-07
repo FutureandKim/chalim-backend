@@ -1,20 +1,26 @@
 package com.chalim.backend.service;
 
-import com.chalim.backend.dto.ResponseDto;
-import com.chalim.backend.dto.TextData;
+import com.chalim.backend.dto.translate.ResponseDto;
+import com.chalim.backend.dto.translate.TextData;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TranslateService {
-        public ResponseDto translateTextData(String language, String imageName) {
+    public ResponseDto translateTextData(String language, String imageName, MultipartFile imageFile) {
+
+        try {
+//            Path imagePath = storeImage(imageFile, imageName);
             String dummyJson = "[\n" +
                     "    {\n" +
                     "        \"transcription\": \"노랑봉투감자\",\n" +
@@ -33,16 +39,21 @@ public class TranslateService {
                     "        \"points\": [[1221, 2267], [1387, 2267], [1387, 2329], [1221, 2329]]\n" +
                     "    }\n" +
                     "]";
-        // 여기에 번역 로직 구현
             ObjectMapper objectMapper = new ObjectMapper();
-            try {
-                List<TextData> textDataList = objectMapper.readValue(dummyJson, new TypeReference<List<TextData>>(){});
-                return new ResponseDto(imageName, textDataList);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            }
+
+            List<TextData> textDataList = objectMapper.readValue(dummyJson, new TypeReference<List<TextData>>() {
+            });
+            return new ResponseDto(imageName, textDataList);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
+    }
 
-}
+//    private Path storeImage(MultipartFile imageFile, String imageName) throws IOException {
+//        Path imagePath = Paths.get("../image", imageName);
+//        Files.copy(imageFile.getInputStream(), imagePath);
+//        return imagePath;
+//    }
 
+};

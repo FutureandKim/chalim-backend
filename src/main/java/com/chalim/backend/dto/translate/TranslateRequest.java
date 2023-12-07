@@ -1,4 +1,4 @@
-package com.chalim.backend.dto;
+package com.chalim.backend.dto.translate;
 
 public class TranslateRequest {
     private String text;

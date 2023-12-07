@@ -1,4 +1,4 @@
-package com.chalim.backend.dto;
+package com.chalim.backend.dto.translate;
 
 
 import java.util.List;
