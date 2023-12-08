@@ -13,14 +13,27 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 @Service
 public class TranslateService {
-    public ResponseDto translateTextData(String language, String imageName, MultipartFile imageFile) {
+    // 사용자 홈 디렉토리 내의 'images' 폴더에 이미지 저장
+    private final Path imageStoragePath = Paths.get(System.getProperty("user.home"), "images");
 
+    public ResponseDto translateTextData(String language, String imageName, MultipartFile imageFile) {
         try {
-//            Path imagePath = storeImage(imageFile, imageName);
+            if (imageFile.isEmpty()) {
+                throw new IllegalArgumentException("Empty image file received");
+            }
+
+            // 'images' 폴더가 없다면 생성
+            if (!Files.exists(imageStoragePath)) {
+                Files.createDirectories(imageStoragePath);
+            }
+
+            Path imagePath = storeImage(imageFile, imageName);
+
             String dummyJson = "[\n" +
                     "    {\n" +
                     "        \"transcription\": \"노랑봉투감자\",\n" +
@@ -50,10 +63,10 @@ public class TranslateService {
         }
     }
 
-//    private Path storeImage(MultipartFile imageFile, String imageName) throws IOException {
-//        Path imagePath = Paths.get("../image", imageName);
-//        Files.copy(imageFile.getInputStream(), imagePath);
-//        return imagePath;
-//    }
+    private Path storeImage(MultipartFile imageFile, String imageName) throws IOException {
+        Path imagePath = imageStoragePath.resolve(imageName);
+        Files.copy(imageFile.getInputStream(), imagePath, StandardCopyOption.REPLACE_EXISTING);
+        return imagePath;
+    }
 
 };
