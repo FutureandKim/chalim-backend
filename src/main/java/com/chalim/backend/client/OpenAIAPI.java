@@ -23,7 +23,7 @@ public class OpenAIAPI {
         CompletionRequest request = CompletionRequest.builder()
                 .prompt(prompt)
                 .maxTokens(15)
-                .model(modelName) // 모델 이름 추가
+                .model(modelName)
                 .build();
 
         String response = openAiService.createCompletion(request).getChoices().get(0).getText().trim();
