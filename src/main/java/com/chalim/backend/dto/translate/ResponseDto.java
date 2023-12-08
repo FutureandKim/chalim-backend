@@ -1,16 +1,19 @@
 package com.chalim.backend.dto.translate;
 
-
 import java.util.List;
 
 public class ResponseDto {
     private String imageName;
-    private List<TextData> translatedTxt;
+    private List<MenuNameItem> menuName;
+    private List<PriceItem> price;
 
-    // Constructor, getters, and setters
-    public ResponseDto(String imageName, List<TextData> translatedTxt) {
+    public ResponseDto() {
+    }
+
+    public ResponseDto(String imageName, List<MenuNameItem> menuName, List<PriceItem> price) {
         this.imageName = imageName;
-        this.translatedTxt = translatedTxt;
+        this.menuName = menuName;
+        this.price = price;
     }
 
     public String getImageName() {
@@ -21,12 +24,19 @@ public class ResponseDto {
         this.imageName = imageName;
     }
 
-    public List<TextData> getTranslatedTxt() {
-        return translatedTxt;
+    public List<MenuNameItem> getMenuName() {
+        return menuName;
     }
 
-    public void setTranslatedTxt(List<TextData> translatedTxt) {
-        this.translatedTxt = translatedTxt;
+    public void setMenuName(List<MenuNameItem> menuName) {
+        this.menuName = menuName;
+    }
+
+    public List<PriceItem> getPrice() {
+        return price;
+    }
+
+    public void setPrice(List<PriceItem> price) {
+        this.price = price;
     }
 }
-
