@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import kr.co.shineware.nlp.komoran.constant.DEFAULT_MODEL;
-import kr.co.shineware.nlp.komoran.core.Komoran;
+
 
 import java.io.IOException;
 import java.util.*;
@@ -20,7 +19,7 @@ import java.util.stream.Collectors;
 public class ReviewController {
 
     private final ReviewService reviewService;
-    private final Komoran komoran = new Komoran(DEFAULT_MODEL.FULL);
+
 
     @Autowired
     public ReviewController(ReviewService reviewService) {
@@ -69,6 +68,7 @@ public class ReviewController {
                 .stream()
                 .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+
 
         return sortedWordFrequency;
     }
