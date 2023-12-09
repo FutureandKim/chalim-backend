@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/translate")
 public class TranslateController {
 
+
     private final TranslateService translateService;
 
     @Autowired
