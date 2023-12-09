@@ -4,10 +4,11 @@ import com.chalim.backend.service.ReviewService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.*;
@@ -20,14 +21,13 @@ public class ReviewController {
 
     private final ReviewService reviewService;
 
-
     @Autowired
     public ReviewController(ReviewService reviewService) {
         this.reviewService = reviewService;
     }
 
     @GetMapping("/review")
-    public Map<String, Integer> searchAndCountReviewWords(@RequestParam String query) {
+    public ResponseEntity<byte[]> searchAndCountReviewWords(@RequestParam String query) {
         String jsonResponse = reviewService.searchReview(query);
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -50,14 +50,12 @@ public class ReviewController {
             e.printStackTrace();
         }
 
-        // 쿼리에서 추출한 단어만 선택
         Set<String> queryWords = Arrays.stream(query.split("\\s+")).collect(Collectors.toSet());
 
         Map<String, Integer> wordFrequency = new HashMap<>();
         for (String description : descriptions) {
             String[] words = description.split("\\s+");
             for (String word : words) {
-                // 쿼리에서 추출한 단어만을 골라내어 빈도수 계산
                 if (queryWords.contains(word)) {
                     wordFrequency.put(word, wordFrequency.getOrDefault(word, 0) + 1);
                 }
@@ -69,8 +67,31 @@ public class ReviewController {
                 .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 
+        // Flask 서버로 데이터 전송
+        byte[] imageBytes = sendToFlask(sortedWordFrequency);
 
-        return sortedWordFrequency;
+        // 클라이언트에게 이미지 바이트 배열 반환
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_PNG);
+        return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
+    }
+
+    private byte[] sendToFlask(Map<String, Integer> sortedWordFrequency) {
+        // HTTP 헤더 설정
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        // 요청 엔터티 설정
+        HttpEntity<Map<String, Integer>> requestEntity = new HttpEntity<>(sortedWordFrequency, headers);
+
+        // Flask 서버 URL 설정
+        String flaskUrl = "http://localhost:5000/wordcloud";
+
+        // Flask 서버에 POST 요청 전송
+        ResponseEntity<byte[]> responseEntity = new RestTemplate().postForEntity(flaskUrl, requestEntity, byte[].class);
+
+        // 응답 처리 (이미지를 파일로 저장하거나 화면에 표시 등)
+        return responseEntity.getBody();
     }
 
     private String extractKoreanWithSpaces(String input) {

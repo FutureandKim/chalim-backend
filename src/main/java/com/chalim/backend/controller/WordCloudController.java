@@ -17,7 +17,7 @@ public class WordCloudController {
         this.restTemplate = restTemplate;
     }
 
-    @PostMapping("/word-cloud")
+    @PostMapping("/generate")
     public ResponseEntity<byte[]> generateWordCloud(@RequestBody Map<String, Object> data) {
         try {
 
