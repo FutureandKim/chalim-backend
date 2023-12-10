@@ -85,7 +85,7 @@ public class ReviewController {
         HttpEntity<Map<String, Integer>> requestEntity = new HttpEntity<>(sortedWordFrequency, headers);
 
         // Flask 서버 URL 설정
-        String flaskUrl = "http://localhost:5000/wordcloud";
+        String flaskUrl = "https://9acd-2001-2d8-f105-5d96-542f-ad0b-2b56-2ff.ngrok.io/wordcloud";
 
         // Flask 서버에 POST 요청 전송
         ResponseEntity<byte[]> responseEntity = new RestTemplate().postForEntity(flaskUrl, requestEntity, byte[].class);
@@ -106,3 +106,8 @@ public class ReviewController {
         return result.toString();
     }
 }
+
+
+//수정할 부분
+//1. 워드클라우드 url
+//2. 언어 번역 후 워드클라우드 돌리기
