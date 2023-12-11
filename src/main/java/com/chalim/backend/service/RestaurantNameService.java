@@ -38,9 +38,7 @@ public class RestaurantNameService {
     @Value("${kakao.api.key}")
     private String kakaoApiKey;
 
-    public NameList searchRestaurantByKeyword(String keyword, double latitude, double longitude, int radius) throws IOException {
-
-        //logger.info(" 카카오 api key [{}]", kakaoApiKey);
+    public NameList searchRestaurantByKeyword(double latitude, double longitude, int radius) throws IOException {
 
         //헤더
         HttpHeaders headers = new HttpHeaders();
@@ -49,10 +47,11 @@ public class RestaurantNameService {
         // uri
         UriComponents uriComponents = UriComponentsBuilder.fromUriString(Constants.KAKAO_SEARCH_API)
                 .path(Constants.KAKAO_SEARCH_PATH)
-                .queryParam(QUERY, keyword)
+                .queryParam("category_group_code", "FD6")
                 .queryParam("y", latitude)
                 .queryParam("x", longitude)
                 .queryParam("radius", radius)
+                .queryParam("sort", "distance")
                 .build();
 
         // request

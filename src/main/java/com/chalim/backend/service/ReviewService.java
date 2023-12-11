@@ -10,7 +10,6 @@ import java.util.Map;
 
 @Service
 public class ReviewService {
-
     @Value("${naver.api.client-id}")
     private String clientId;
 
@@ -26,7 +25,7 @@ public class ReviewService {
     public String searchReview(String query) {
         String encodedQuery = encodeQuery(query);
         String apiURL = "https://openapi.naver.com/v1/search/blog?query=" + encodedQuery
-                + "&display=100&start=1&display=200&start=101&display=300&start=201";
+                + "&display=100&start=1&display=200&start=101&display=300&start=201&display=400&start=301";
 
         Map<String, String> requestHeaders = createRequestHeaders();
 
