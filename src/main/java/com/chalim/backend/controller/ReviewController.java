@@ -82,8 +82,10 @@ public class ReviewController {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Map<String, Integer>> requestEntity = new HttpEntity<>(sortedWordFrequency, headers);
 
+
         // Flask 서버 URL
         String flaskUrl = "http://localhost:5000/wordcloud";
+
 
         ResponseEntity<byte[]> responseEntity = new RestTemplate().postForEntity(flaskUrl, requestEntity, byte[].class);
         return responseEntity.getBody();

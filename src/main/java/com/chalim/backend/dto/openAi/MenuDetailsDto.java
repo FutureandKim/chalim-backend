@@ -1,23 +1,23 @@
 package com.chalim.backend.dto.openAi;
 
 public class MenuDetailsDto {
-    private String explanation;
+    private String description;
     private String history;
     private String ingredients;
 
-    public MenuDetailsDto(String explanation, String history, String ingredients) {
-        this.explanation = explanation;
+    public MenuDetailsDto(String description, String history, String ingredients) {
+        this.description = description;
         this.history = history;
         this.ingredients = ingredients;
     }
 
     // Getters and Setters
-    public String getExplanation() {
-        return explanation;
+    public String getDescription() {
+        return description;
     }
 
-    public void setExplanation(String explanation) {
-        this.explanation = explanation;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getHistory() {
