@@ -27,7 +27,7 @@ public class ReviewController {
     }
 
     @GetMapping("/review")
-    public ResponseEntity<byte[]> searchAndCountReviewWords(@RequestParam String query) {
+    public ResponseEntity<byte[]> reviewWords(@RequestParam String query) {
         String jsonResponse = reviewService.searchReview(query);
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -70,27 +70,22 @@ public class ReviewController {
         // Flask 서버로 데이터 전송
         byte[] imageBytes = sendToFlask(sortedWordFrequency);
 
-        // 클라이언트에게 이미지 바이트 배열 반환
+        // 이미지 바이트 배열 반환
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_PNG);
         return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
     }
 
     private byte[] sendToFlask(Map<String, Integer> sortedWordFrequency) {
-        // HTTP 헤더 설정
+        // HTTP 헤더
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-
-        // 요청 엔터티 설정
         HttpEntity<Map<String, Integer>> requestEntity = new HttpEntity<>(sortedWordFrequency, headers);
 
-        // Flask 서버 URL 설정
-        String flaskUrl = "https://9acd-2001-2d8-f105-5d96-542f-ad0b-2b56-2ff.ngrok.io/wordcloud";
+        // Flask 서버 URL
+        String flaskUrl = "http://localhost:5000/wordcloud";
 
-        // Flask 서버에 POST 요청 전송
         ResponseEntity<byte[]> responseEntity = new RestTemplate().postForEntity(flaskUrl, requestEntity, byte[].class);
-
-        // 응답 처리 (이미지를 파일로 저장하거나 화면에 표시 등)
         return responseEntity.getBody();
     }
 
@@ -107,7 +102,3 @@ public class ReviewController {
     }
 }
 
-
-//수정할 부분
-//1. 워드클라우드 url
-//2. 언어 번역 후 워드클라우드 돌리기
