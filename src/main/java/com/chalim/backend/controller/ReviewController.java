@@ -85,7 +85,7 @@ public class ReviewController {
         HttpEntity<Map<String, Integer>> requestEntity = new HttpEntity<>(sortedWordFrequency, headers);
 
         // Flask 서버 URL 설정
-        String flaskUrl = "https://9acd-2001-2d8-f105-5d96-542f-ad0b-2b56-2ff.ngrok.io/wordcloud";
+        String flaskUrl = "https://9429-2001-2d8-309-3bc9-1028-2ba8-38c9-c2b8.ngrok-free.app/wordcloud";
 
         // Flask 서버에 POST 요청 전송
         ResponseEntity<byte[]> responseEntity = new RestTemplate().postForEntity(flaskUrl, requestEntity, byte[].class);

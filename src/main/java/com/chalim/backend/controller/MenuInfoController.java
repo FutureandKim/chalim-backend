@@ -15,13 +15,11 @@ public class MenuInfoController {
     @Autowired
     private MenuInfoService menuService;
 
-    @PostMapping("/details")
-    public ResponseEntity<MenuDetailsDto> getMenuDetails(@RequestBody Map<String, String> requestBody) {
-        String menuName = requestBody.get("menuName");
-        String language = requestBody.get("language");
-
+    @GetMapping("/details")
+    public ResponseEntity<MenuDetailsDto> getMenuDetails(@RequestParam String menuName, @RequestParam String language) {
         MenuDetailsDto details = menuService.getMenuDetails(menuName, language);
         return ResponseEntity.ok(details);
     }
 }
+
 
