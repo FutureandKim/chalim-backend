@@ -19,7 +19,6 @@ public class MenuInfoController {
     public ResponseEntity<MenuDetailsDto> getMenuDetails(@RequestBody Map<String, String> requestBody) {
         String menuName = requestBody.get("menuName");
         String language = requestBody.get("language");
-
         MenuDetailsDto details = menuService.getMenuDetails(menuName, language);
         return ResponseEntity.ok(details);
     }
