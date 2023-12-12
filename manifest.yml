@@ -1,0 +1,4 @@
+applications:
+  - name: backend
+    memory: 512M
+    instances: 1
