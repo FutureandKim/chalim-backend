@@ -84,7 +84,7 @@ public class ReviewController {
 
 
         // Flask 서버 URL
-        String flaskUrl = "http://localhost:5000/wordcloud";
+        String flaskUrl = "https://modelserver.apps.sys.paas-ta-dev10.kr/wordcloud";
 
 
         ResponseEntity<byte[]> responseEntity = new RestTemplate().postForEntity(flaskUrl, requestEntity, byte[].class);
